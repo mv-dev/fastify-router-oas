@@ -1,0 +1,34 @@
+{
+  "name": "fastify-router-oas",
+  "version": "0.0.1",
+  "description": "",
+  "author": "matusv",
+  "license": "MIT",
+  "homepage": "https://gitlab.com/mv-dev/fastify-router-oas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/mv-dev/fastify-router-oas.git"
+  },
+  "keywords": [
+    "npm",
+    "node",
+    "fastify",
+    "openapi",
+    "openapi3",
+    "oas",
+    "oas3",
+    "fastify-router-oas"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "fastify-multer": "^2.0.2",
+    "swagger-parser": "^10.0.2"
+  },
+  "devDependencies": {
+    "@types/swagger-parser": "^7.0.1",
+    "typescript": "^3.8.3"
+  }
+}
