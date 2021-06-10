@@ -64,7 +64,7 @@ async function routerPlugin(
 
     let importedControllers: Array<any> = [];
 
-    const urlPrefix: string = parsedSwagger.servers[0].url;
+    const urlPrefix: string = parsedSwagger['servers'][0].url;
     const paths: Array<string> = Object.keys(parsedSwagger.paths);
 
     paths.forEach(async (simplePath: string) => {
