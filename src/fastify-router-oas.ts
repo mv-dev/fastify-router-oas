@@ -52,7 +52,8 @@ async function routerPlugin(
   ];
 
   try {
-    const parsedSwagger = await SwaggerParser.validate(options.openapiPath);
+    const swaggerParser = new SwaggerParser();
+    const parsedSwagger = await swaggerParser.validate(options.openapiPath);
     console.log('API name: %s, Version: %s', parsedSwagger.info.title, parsedSwagger.info.version);
 
     if (!parsedSwagger || !parsedSwagger.paths) {
