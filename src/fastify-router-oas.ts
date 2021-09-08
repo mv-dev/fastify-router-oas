@@ -72,7 +72,7 @@ async function routerPlugin(
       const endpointData = parsedSwagger.paths[simplePath];
 
       if (!importedControllers[endpointData['x-controller']]) {
-        importedControllers[endpointData['x-controller']] = await import(options.controllersPath + '/' +  endpointData['x-controller']);
+        importedControllers[endpointData['x-controller']] = await import(__dirname + '/' + options.controllersPath + '/' +  endpointData['x-controller']);
       }
 
       let path = urlPrefix + simplePath;
