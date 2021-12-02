@@ -1,5 +1,6 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
-import multer from 'fastify-multer';
+import fastifyMulter from 'fastify-multer';
+import fastifySwagger from 'fastify-swagger';
 
 
 const CONTENT_TYPE_APPLICATION_JSON = 'application/json';
@@ -9,21 +10,34 @@ export default async function router(
   server, 
   options: {
     controllersPath: string,
-    openapiPath: string,
+    openapiFilePath: string,
+    openapiUrlPath: string,
     security: any
   },
   next
 ) {
   try {
-    const multerUpload = multer({
-      storage: multer.memoryStorage()
+    const multerUpload = fastifyMulter({
+      storage: fastifyMulter.memoryStorage()
     });
 
-    server.register(multer.contentParser);
+    server.register(fastifyMulter.contentParser);
 
+    // swagger ui
+    server.register(fastifySwagger, {
+      routePrefix: options.openapiUrlPath,
+      mode: 'static',
+      specification: {
+        path: `./${options.openapiFilePath}`
+      },
+      exposeRoute: true
+    });
+
+    // router
     server.register(routerPlugin, {
       controllersPath: options.controllersPath,
-      openapiPath: options.openapiPath,
+      openapiFilePath: options.openapiFilePath,
+      openapiUrlPath: options.openapiUrlPath,
       security: options.security,
       multerUpload: multerUpload
     });
@@ -38,7 +52,8 @@ async function routerPlugin(
   server, 
   options: {
     controllersPath: string,
-    openapiPath: string,
+    openapiFilePath: string,
+    openapiUrlPath: string,
     security: any,
     multerUpload: any
   },
@@ -53,14 +68,14 @@ async function routerPlugin(
 
   try {
     const swaggerParser = new SwaggerParser();
-    const parsedSwagger = await swaggerParser.validate(options.openapiPath);
+    const parsedSwagger = await swaggerParser.validate(options.openapiFilePath);
+
     console.log('API name: %s, Version: %s', parsedSwagger.info.title, parsedSwagger.info.version);
 
     if (!parsedSwagger || !parsedSwagger.paths) {
       next();
     }
 
-    let isMulterUsed: boolean = false;
     let multerUpload = options.multerUpload;
 
     let importedControllers: Array<any> = [];

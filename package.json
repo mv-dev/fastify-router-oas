@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "fastify-multer": "^2.0.2",
+    "fastify-swagger": "^4.12.6",
     "swagger-parser": "^10.0.2"
   },
   "devDependencies": {
