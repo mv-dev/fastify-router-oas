@@ -2,6 +2,10 @@
 
 A library designed to connect Fastify application endpoints with the OPENAPI 3 scheme, which describes them. It supports validation for content type *application/json* and *multipart/form-data*, which is using as file upload.
 
+## Compatibility
+
+Library is compatible only with **fastify 3.X.X**!
+ 
 ## Main components of the library:
 
 1. defining inputs/outputs of application endpoints
