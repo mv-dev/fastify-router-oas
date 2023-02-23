@@ -6,7 +6,7 @@
     "allowJs": true,
     "outDir": "dist",
     "sourceMap": false,
-    "lib": ["es2020"],
+    "lib": ["dom", "es2020"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },

@@ -1,6 +1,7 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
 import fastifyMulter from 'fastify-multer';
-import fastifySwagger from 'fastify-swagger';
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 
 
 const CONTENT_TYPE_APPLICATION_JSON = 'application/json';
@@ -23,7 +24,7 @@ export default async function router(
 
     server.register(fastifyMulter.contentParser);
 
-    // swagger ui
+    // swagger
     server.register(fastifySwagger, {
       routePrefix: options.openapiUrlPath,
       mode: 'static',
@@ -31,6 +32,11 @@ export default async function router(
         path: `./${options.openapiFilePath}`
       },
       exposeRoute: true
+    });
+
+    // swagger ui
+    server.register(fastifySwaggerUi, {
+      routePrefix: options.openapiUrlPath
     });
 
     // router
@@ -61,6 +67,7 @@ async function routerPlugin(
 ) {
   const requestMethods: Array<string> = [
     'get',
+    'patch',
     'post',
     'put',
     'delete'

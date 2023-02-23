@@ -4,7 +4,8 @@ A library designed to connect Fastify application endpoints with the OPENAPI 3 s
 
 ## Compatibility
 
-Library is compatible only with **fastify 3.X.X**!
+- version **2.X.X** is compatible with **fastify 4.X.X**
+- version **1.X.X** is compatible with **fastify 3.X.X**
  
 ## Main components of the library:
 
