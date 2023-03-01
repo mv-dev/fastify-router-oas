@@ -1,13 +1,13 @@
 {
   "name": "fastify-router-oas",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "author": "mv",
   "license": "MIT",
-  "homepage": "https://gitlab.com/mv-dev/fastify-router-oas",
+  "homepage": "https://github.com/mv-dev/fastify-router-oas",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/mv-dev/fastify-router-oas.git"
+    "url": "git+https://github.com/mv-dev/fastify-router-oas.git"
   },
   "main": "dist/fastify-router-oas.js",
   "types": "dist/fastify-router-oas.d.ts",
