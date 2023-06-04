@@ -162,9 +162,7 @@ async function routerPlugin(
               handler: async (req, res) => {
                 res.code(200).send(await operation(req));
               },
-              onError: (req, res, error, done) => {
-                res.status(error.status || error.statusCode || 500).send({ error: error.message })
-              }
+              attachValidation: true
             };
 
             if (multipartFormDataProperty) {
