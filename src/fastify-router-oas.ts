@@ -48,6 +48,16 @@ export default async function router(
       multerUpload: multerUpload
     });
 
+    // error handling (only for schema validation errors yet)
+    server.setErrorHandler((error, req, res) => {
+      // validation errors have status 500 and some "serialization" attribute
+      if (error.serialization) {
+        error.status = 400
+      }
+
+      throw error
+    });
+
     next();
   } catch (err) {
     throw err;
