@@ -23,7 +23,10 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "release:major": "npm version major --tag-version-prefix=\"v\" --message=\"v%s\"",
+    "release:minor": "npm version minor --tag-version-prefix=\"v\" --message=\"v%s\"",
+    "release:patch": "npm version patch --tag-version-prefix=\"v\" --message=\"v%s\""
   },
   "dependencies": {
     "@fastify/swagger": "^8.0.0",
