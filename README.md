@@ -14,6 +14,10 @@ A library designed to connect Fastify application endpoints with the OPENAPI 3 s
 3. multiple security support for individual endpoints
 4. automatic generation of a swagger ui, accessible via a web browser
 
+## Restrictions
+
+1. library (due it's third party dependecy) can't resolve openapi *$ref* attribute, which points to external file
+
 ## Usage
 
 Usage is pretty simple, just register *fastify-router-oas* to application like this:
@@ -23,6 +27,7 @@ Usage is pretty simple, just register *fastify-router-oas* to application like t
 
 fastify.register(fastifyRouterOas, {
   controllersPath: __dirname + '/controllers',
+  openapiBaseDir: '.',
   openapiFilePath: './api.yaml',
   openapiUrlPath: '/swagger',
   security: {}
@@ -47,6 +52,7 @@ async function createServer() {
 
   server.register(fastifyRouterOas, {
     controllersPath: __dirname + '/controllers',
+    openapiBaseDir: '.',
     openapiFilePath: './api.yaml',
     openapiUrlPath: '/swagger',
     security: {}
@@ -163,6 +169,7 @@ Usage of security contains to define a function, which provide security and atta
 
 fastify.register(fastifyRouterOas, {
   controllersPath: __dirname + '/controllers',
+  openapiBaseDir: '.',
   openapiFilePath: './api.yaml',
   openapiUrlPath: '/swagger',
   security: {
