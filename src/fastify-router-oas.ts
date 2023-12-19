@@ -11,6 +11,7 @@ export default async function router(
   server, 
   options: {
     controllersPath: string,
+    openapiBaseDir: string,
     openapiFilePath: string,
     openapiUrlPath: string,
     security: any
@@ -26,9 +27,9 @@ export default async function router(
 
     // swagger
     server.register(fastifySwagger, {
-      routePrefix: options.openapiUrlPath,
-      mode: 'dynamic',
+      mode: 'static',
       specification: {
+        baseDir: `./${options.openapiBaseDir}`,
         path: `./${options.openapiFilePath}`
       },
       exposeRoute: true
