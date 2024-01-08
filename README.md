@@ -5,7 +5,7 @@ A library designed to connect Fastify application endpoints with the OPENAPI 3 s
 ## Compatibility
 
 - version **2.X.X** is compatible with **fastify 4.X.X**
-- version **1.X.X** is compatible with **fastify 3.X.X**
+- version **1.X.X** is compatible with **fastify 3.X.X** (not maintained anymore)
  
 ## Main components of the library:
 
@@ -16,7 +16,7 @@ A library designed to connect Fastify application endpoints with the OPENAPI 3 s
 
 ## Restrictions
 
-1. library (due it's third party dependecy) can't resolve openapi *$ref* attribute, which points to external file
+~~1. library (due it's third party dependecy) can't resolve openapi *$ref* attribute, which points to external file~~ (resolved in version 2.2.0)
 
 ## Usage
 
