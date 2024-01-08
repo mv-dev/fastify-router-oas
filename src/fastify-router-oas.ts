@@ -2,6 +2,7 @@ import SwaggerParser from '@apidevtools/swagger-parser';
 import fastifyMulter from 'fastify-multer';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
+import $RefParser from "@apidevtools/json-schema-ref-parser";
 
 
 const CONTENT_TYPE_APPLICATION_JSON = 'application/json';
@@ -25,12 +26,25 @@ export default async function router(
 
     server.register(fastifyMulter.contentParser);
 
+    const dereferencedSchema = await $RefParser.dereference(options.openapiFilePath)
+
     // swagger
     server.register(fastifySwagger, {
       mode: 'static',
       specification: {
         baseDir: `./${options.openapiBaseDir}`,
-        path: `./${options.openapiFilePath}`
+        path: `./${options.openapiFilePath}`,
+        postProcessor: (swaggerObject) => {
+          if (swaggerObject['components'] && dereferencedSchema['components']) {
+            swaggerObject['components'].schemas = dereferencedSchema['components'].schemas
+          }
+
+          if (swaggerObject['paths'] && dereferencedSchema['paths']) {
+            swaggerObject['paths'] = dereferencedSchema['paths']
+          }
+
+          return swaggerObject
+        }
       },
       exposeRoute: true
     });
@@ -87,8 +101,6 @@ async function routerPlugin(
   try {
     const swaggerParser = new SwaggerParser();
     const parsedSwagger = await swaggerParser.validate(options.openapiFilePath);
-
-    console.log('API name: %s, Version: %s', parsedSwagger.info.title, parsedSwagger.info.version);
 
     if (!parsedSwagger || !parsedSwagger.paths) {
       next();
